@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: achecker-service
+
+api:
+  majorVersion: 1
+  minorVersion: 0
+
+server:
+  port: ${PORT:8082}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8081/eureka/}
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+
+achecker:
+  service:
+    endpoint: https://achecker.ca/checkacc.php
+    id: 9c33bacebb6fb3dd92585b0eb27bad4dfe34b1ed
