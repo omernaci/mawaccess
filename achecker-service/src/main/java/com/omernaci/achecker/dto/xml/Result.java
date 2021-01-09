@@ -1,4 +1,4 @@
-package com.omernaci.achecker.dto.model;
+package com.omernaci.achecker.dto.xml;
 
 import lombok.Data;
 

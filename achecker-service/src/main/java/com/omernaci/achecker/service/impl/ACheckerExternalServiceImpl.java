@@ -1,6 +1,6 @@
 package com.omernaci.achecker.service.impl;
 
-import com.omernaci.achecker.dto.model.Resultset;
+import com.omernaci.achecker.dto.xml.Resultset;
 import com.omernaci.achecker.dto.response.ACheckerResponse;
 import com.omernaci.achecker.service.ACheckerExternalService;
 import com.omernaci.achecker.util.RestUtil;
@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,12 +60,12 @@ public class ACheckerExternalServiceImpl implements ACheckerExternalService {
                 Resultset resultset = getResultsetFromResponse(response);
                 if (resultset != null) {
                     aCheckerResponse.setResultset(resultset);
-                    aCheckerResponse.setReturnCode("0");
+                    aCheckerResponse.setSuccess(true);
                 }
             } catch (JAXBException e) {
                 log.error("Unmarshall Error : {}", e.getLocalizedMessage());
                 aCheckerResponse.setResultset(null);
-                aCheckerResponse.setReturnCode("-1");
+                aCheckerResponse.setSuccess(false);
             }
         }
 

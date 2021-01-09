@@ -1,13 +1,14 @@
 package com.omernaci.achecker.dto.response;
 
-import com.omernaci.achecker.dto.model.Resultset;
-import lombok.Data;
+import com.omernaci.achecker.dto.xml.Resultset;
+import lombok.*;
 
-@Data
-public class ACheckerResponse {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ACheckerResponse extends BaseApiResponse {
 
     private Resultset resultset;
-
-    private String returnCode;
 
 }
