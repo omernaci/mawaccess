@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: pa11y-service
+
+api:
+  majorVersion: 1
+  minorVersion: 0
+
+server:
+  port: ${PORT:8083}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8081/eureka/}
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+
+pa11y:
+  service:
+    endpoint: http://localhost:3000/tasks
