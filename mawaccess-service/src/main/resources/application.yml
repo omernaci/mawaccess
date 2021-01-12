@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: mawaccess-service
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/mawaccessdb
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+api:
+  majorVersion: 1
+  minorVersion: 0
+
+server:
+  port: ${PORT:8084}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://localhost:8081/eureka/}
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+
