@@ -1,5 +1,6 @@
 package com.omernaci.achecker.config;
 
+import com.omernaci.achecker.exception.RestTemplateErrorHandler;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
+                .errorHandler(new RestTemplateErrorHandler())
                 .build();
     }
 
