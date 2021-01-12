@@ -1,10 +1,13 @@
 package com.omernaci.pa11y.service.impl;
 
+import com.omernaci.pa11y.dto.ResultDto;
 import com.omernaci.pa11y.dto.TaskDto;
 import com.omernaci.pa11y.dto.model.Resultset;
 import com.omernaci.pa11y.dto.request.ResultRequest;
 import com.omernaci.pa11y.dto.request.TaskRequest;
+import com.omernaci.pa11y.dto.response.BaseApiResponse;
 import com.omernaci.pa11y.dto.response.ResultResponse;
+import com.omernaci.pa11y.dto.response.TaskListResponse;
 import com.omernaci.pa11y.dto.response.TaskResponse;
 import com.omernaci.pa11y.service.Pa11yExternalService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,23 +42,24 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
     }
 
     @Override
-    public TaskResponse createTask(TaskRequest request) {
+    public BaseApiResponse createTask(TaskRequest request) {
+        BaseApiResponse response = new BaseApiResponse();
 
-        ResponseEntity<TaskResponse> response = restTemplate
-                .postForEntity(pa11yServiceEndpoint, request, TaskResponse.class);
+        ResponseEntity<String> responseEntity = restTemplate
+                .postForEntity(pa11yServiceEndpoint, request, String.class);
 
-
-        if (response.getStatusCode() == HttpStatus.CREATED) {
+        if (responseEntity.getStatusCode() == HttpStatus.CREATED) {
             log.info("Response : {}", response);
+            response.setSuccess(true);
         } else {
-            log.error("ERRRRR");
+            response.setSuccess(false);
         }
-
-        return response.getBody();
+        return response;
     }
 
     @Override
     public ResultResponse getResultList(ResultRequest request) {
+        ResultResponse response = new ResultResponse();
 
         Map<String, String> urlParams = new HashMap<>();
         urlParams.put("id", request.getId());
@@ -64,10 +68,20 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
                 .fromUriString(pa11yServiceEndpoint.concat("/{id}/results"))
                 .queryParam("full", request.getFull());
 
-        ResponseEntity<Resultset> response = restTemplate
-                .getForEntity(builder.buildAndExpand(urlParams).toUri(), Resultset.class);
+        ResponseEntity<List<ResultDto>> responseEntity = restTemplate.exchange(
+                builder.buildAndExpand(urlParams).toUri(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {});
 
-        return null;
+        if (responseEntity != null && responseEntity.getStatusCode().is2xxSuccessful()) {
+            response.setResultDtos(responseEntity.getBody());
+            response.setSuccess(true);
+        } else {
+            response.setSuccess(false);
+        }
+
+        return response;
     }
 
     @Override
@@ -88,33 +102,41 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
     }
 
     @Override
-    public List<TaskResponse> getTaskList() {
-        List<TaskResponse> tasks = new ArrayList<>();
-        ResponseEntity<List<TaskResponse>> response = restTemplate.exchange(
+    public TaskListResponse getTaskList() {
+        TaskListResponse response = new TaskListResponse();
+
+        ResponseEntity<List<TaskDto>> responseEntity = restTemplate.exchange(
                 pa11yServiceEndpoint,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<TaskResponse>>() {});
+                new ParameterizedTypeReference<>() {});
 
-        if(response != null && response.hasBody()){
-            tasks = response.getBody();
+        if(responseEntity != null && responseEntity.hasBody()){
+            response.setTaskDtos(responseEntity.getBody());
+            response.setSuccess(true);
+        } else {
+            response.setSuccess(false);
         }
 
-        return tasks;
+        return response;
     }
 
     @Override
-    public ResponseEntity<?> runTask(String id) {
+    public BaseApiResponse runTask(String id) {
+        BaseApiResponse response = new BaseApiResponse();
 
         final Map<String, String> variables = new HashMap<>();
         variables.put("id", id);
 
-        ResponseEntity<Void> response = restTemplate
+        ResponseEntity<Void> responseEntity = restTemplate
                 .postForEntity(pa11yServiceEndpoint.concat("/{id}/run"), null, Void.class, variables);
 
-        if (response != null && response.getStatusCode().is2xxSuccessful())
-            return new ResponseEntity<>(null, HttpStatus.OK);
+        if (responseEntity != null && responseEntity.getStatusCode().is2xxSuccessful()) {
+            response.setSuccess(true);
+        } else {
+            response.setSuccess(false);
+        }
 
-        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        return response;
     }
 }

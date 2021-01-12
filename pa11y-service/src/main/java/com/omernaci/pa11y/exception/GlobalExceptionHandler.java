@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = RestTemplateException.class)
-    ResponseEntity<ErrorResponse> handleMyRestTemplateException(RestTemplateException exception,
+    ResponseEntity<ErrorResponse> handleRestTemplateException(RestTemplateException exception,
                                                                 HttpServletRequest request) {
         return new ResponseEntity<>(new ErrorResponse(exception, request.getRequestURI()), exception.getStatusCode());
     }
