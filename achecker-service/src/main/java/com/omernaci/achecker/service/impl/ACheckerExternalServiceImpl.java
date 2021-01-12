@@ -43,18 +43,11 @@ public class ACheckerExternalServiceImpl implements ACheckerExternalService {
 
     @Override
     public ACheckerResponse getResult(String url) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("id", achekerServiceId);
-        parameters.put("output", OUTPUT);
-        parameters.put("guide", GUIDE);
-        parameters.put("offset", OFFSET);
-        parameters.put("uri", url);
-
-        String response = RestUtil.httpGET(restTemplate, parameters, acheckerServiceEndpoint);
-
+        String response = RestUtil.httpGET(restTemplate, getParameters(url), acheckerServiceEndpoint);
         log.info("Response : {}", response);
 
         ACheckerResponse aCheckerResponse = new ACheckerResponse();
+
         if (StringUtils.isNotEmpty(response)) {
             try {
                 Resultset resultset = getResultsetFromResponse(response);
@@ -70,6 +63,16 @@ public class ACheckerExternalServiceImpl implements ACheckerExternalService {
         }
 
         return aCheckerResponse;
+    }
+
+    private Map<String, String> getParameters(String url) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", achekerServiceId);
+        parameters.put("output", OUTPUT);
+        parameters.put("guide", GUIDE);
+        parameters.put("offset", OFFSET);
+        parameters.put("uri", url);
+        return parameters;
     }
 
     private Resultset getResultsetFromResponse(String response) throws JAXBException {
