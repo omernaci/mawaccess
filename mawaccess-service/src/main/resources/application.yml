@@ -10,6 +10,7 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
 
 api:
   majorVersion: 1
