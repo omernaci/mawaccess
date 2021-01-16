@@ -1,1 +1,15 @@
-<p>project-detail works!</p>
+<h2>Project Details</h2> 
+
+<hr/>
+<div *ngIf="project">
+  <div>
+    <label><b>Project Name: </b></label> {{project.name}}
+  </div>
+  <div>
+    <label><b>Project Url: </b></label> {{project.url}}
+  </div> 
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Project List</button><br>

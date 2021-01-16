@@ -1,5 +1,6 @@
 package com.omernaci.mawaccess.controller;
 
+import com.omernaci.mawaccess.dto.ProjectDTO;
 import com.omernaci.mawaccess.dto.request.CreateProjectRequest;
 import com.omernaci.mawaccess.dto.response.BaseApiResponse;
 import com.omernaci.mawaccess.dto.response.ProjectListResponse;
@@ -13,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/mawaccess", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "http://localhost:4200")
 public class MawAccessController {
 
     private final ProjectService projectService;
@@ -39,13 +42,13 @@ public class MawAccessController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProjectResponse> getProject(@PathVariable("id") Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProject(id));
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable("id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProject(id).getProjectDTO());
     }
 
     @GetMapping
-    public ResponseEntity<ProjectListResponse> getProjectList() {
-        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectList());
+    public ResponseEntity<List<ProjectDTO>> getProjectList() {
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectList().getProjectDTOS());
     }
 
 }
