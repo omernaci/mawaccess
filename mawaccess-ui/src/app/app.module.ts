@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ProjectDetailComponent } from './components/project-detail/project-deta
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
