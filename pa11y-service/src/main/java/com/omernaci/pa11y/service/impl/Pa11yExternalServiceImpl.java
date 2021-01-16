@@ -1,8 +1,7 @@
 package com.omernaci.pa11y.service.impl;
 
-import com.omernaci.pa11y.dto.ResultDto;
-import com.omernaci.pa11y.dto.TaskDto;
-import com.omernaci.pa11y.dto.model.Resultset;
+import com.omernaci.pa11y.dto.ResultDTO;
+import com.omernaci.pa11y.dto.TaskDTO;
 import com.omernaci.pa11y.dto.request.ResultRequest;
 import com.omernaci.pa11y.dto.request.TaskRequest;
 import com.omernaci.pa11y.dto.response.BaseApiResponse;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,14 +66,14 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
                 .fromUriString(pa11yServiceEndpoint.concat("/{id}/results"))
                 .queryParam("full", request.getFull());
 
-        ResponseEntity<List<ResultDto>> responseEntity = restTemplate.exchange(
+        ResponseEntity<List<ResultDTO>> responseEntity = restTemplate.exchange(
                 builder.buildAndExpand(urlParams).toUri(),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {});
 
         if (responseEntity != null && responseEntity.getStatusCode().is2xxSuccessful()) {
-            response.setResultDtos(responseEntity.getBody());
+            response.setResultDTOS(responseEntity.getBody());
             response.setSuccess(true);
         } else {
             response.setSuccess(false);
@@ -88,11 +86,11 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
     public TaskResponse getTask(String id) {
         TaskResponse taskResponse = new TaskResponse();
 
-        ResponseEntity<TaskDto> response = restTemplate
-                .getForEntity(pa11yServiceEndpoint.concat("/{id}"), TaskDto.class, id);
+        ResponseEntity<TaskDTO> response = restTemplate
+                .getForEntity(pa11yServiceEndpoint.concat("/{id}"), TaskDTO.class, id);
 
         if (response != null && response.hasBody()) {
-            taskResponse.setTaskDto(new ModelMapper().map(response.getBody(), TaskDto.class));
+            taskResponse.setTaskDto(new ModelMapper().map(response.getBody(), TaskDTO.class));
             taskResponse.setSuccess(true);
         } else {
             taskResponse.setSuccess(false);
@@ -105,14 +103,14 @@ public class Pa11yExternalServiceImpl implements Pa11yExternalService {
     public TaskListResponse getTaskList() {
         TaskListResponse response = new TaskListResponse();
 
-        ResponseEntity<List<TaskDto>> responseEntity = restTemplate.exchange(
+        ResponseEntity<List<TaskDTO>> responseEntity = restTemplate.exchange(
                 pa11yServiceEndpoint,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {});
 
         if(responseEntity != null && responseEntity.hasBody()){
-            response.setTaskDtos(responseEntity.getBody());
+            response.setTaskDTOS(responseEntity.getBody());
             response.setSuccess(true);
         } else {
             response.setSuccess(false);

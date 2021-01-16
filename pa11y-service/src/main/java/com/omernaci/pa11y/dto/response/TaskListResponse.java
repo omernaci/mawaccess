@@ -1,6 +1,6 @@
 package com.omernaci.pa11y.dto.response;
 
-import com.omernaci.pa11y.dto.TaskDto;
+import com.omernaci.pa11y.dto.TaskDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Setter
 public class TaskListResponse extends BaseApiResponse {
 
-    private List<TaskDto> taskDtos;
+    private List<TaskDTO> taskDTOS;
 
     public TaskListResponse() {
-        this.taskDtos = new ArrayList<>();
+        this.taskDTOS = new ArrayList<>();
     }
 }

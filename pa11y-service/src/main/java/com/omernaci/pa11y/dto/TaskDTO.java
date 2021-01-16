@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDto {
+public class TaskDTO {
 
     public String id;
 

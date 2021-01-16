@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResultDto {
+public class ResultDTO {
 
     public String id;
 

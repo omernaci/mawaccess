@@ -1,6 +1,6 @@
 package com.omernaci.pa11y.dto.response;
 
-import com.omernaci.pa11y.dto.ResultDto;
+import com.omernaci.pa11y.dto.ResultDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @Setter
 public class ResultResponse extends BaseApiResponse {
 
-    private List<ResultDto> resultDtos;
+    private List<ResultDTO> resultDTOS;
 
     public ResultResponse() {
-        this.resultDtos = new ArrayList<>();
+        this.resultDTOS = new ArrayList<>();
     }
 }
