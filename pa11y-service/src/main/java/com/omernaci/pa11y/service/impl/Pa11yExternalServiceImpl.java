@@ -1,13 +1,13 @@
 package com.omernaci.pa11y.service.impl;
 
-import com.omernaci.pa11y.dto.ResultDTO;
-import com.omernaci.pa11y.dto.TaskDTO;
-import com.omernaci.pa11y.dto.request.ResultRequest;
-import com.omernaci.pa11y.dto.request.TaskRequest;
-import com.omernaci.pa11y.dto.response.BaseApiResponse;
-import com.omernaci.pa11y.dto.response.ResultResponse;
-import com.omernaci.pa11y.dto.response.TaskListResponse;
-import com.omernaci.pa11y.dto.response.TaskResponse;
+import com.omernaci.mawaccess.common.dto.ResultDTO;
+import com.omernaci.mawaccess.common.dto.TaskDTO;
+import com.omernaci.mawaccess.common.request.ResultRequest;
+import com.omernaci.mawaccess.common.request.TaskRequest;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
+import com.omernaci.mawaccess.common.response.ResultResponse;
+import com.omernaci.mawaccess.common.response.TaskListResponse;
+import com.omernaci.mawaccess.common.response.TaskResponse;
 import com.omernaci.pa11y.service.Pa11yExternalService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,6 @@
 package com.omernaci.achecker.service;
 
-import com.omernaci.achecker.dto.response.ACheckerResponse;
+import com.omernaci.mawaccess.common.response.ACheckerResponse;
 
 public interface ACheckerExternalService {
 

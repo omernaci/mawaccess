@@ -1,11 +1,12 @@
 package com.omernaci.pa11y.service;
 
-import com.omernaci.pa11y.dto.request.ResultRequest;
-import com.omernaci.pa11y.dto.request.TaskRequest;
-import com.omernaci.pa11y.dto.response.BaseApiResponse;
-import com.omernaci.pa11y.dto.response.ResultResponse;
-import com.omernaci.pa11y.dto.response.TaskListResponse;
-import com.omernaci.pa11y.dto.response.TaskResponse;
+
+import com.omernaci.mawaccess.common.request.ResultRequest;
+import com.omernaci.mawaccess.common.request.TaskRequest;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
+import com.omernaci.mawaccess.common.response.ResultResponse;
+import com.omernaci.mawaccess.common.response.TaskListResponse;
+import com.omernaci.mawaccess.common.response.TaskResponse;
 
 public interface Pa11yExternalService {
 

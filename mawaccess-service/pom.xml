@@ -17,9 +17,15 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.0-RC1</spring-cloud.version>
+        <mawaccess-common.version>0.0.1</mawaccess-common.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.omernaci</groupId>
+            <artifactId>mawaccess-common</artifactId>
+            <version>${mawaccess-common.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>

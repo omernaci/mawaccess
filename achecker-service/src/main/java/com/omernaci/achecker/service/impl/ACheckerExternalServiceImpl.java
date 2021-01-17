@@ -1,9 +1,9 @@
 package com.omernaci.achecker.service.impl;
 
-import com.omernaci.achecker.dto.xml.Resultset;
-import com.omernaci.achecker.dto.response.ACheckerResponse;
 import com.omernaci.achecker.service.ACheckerExternalService;
 import com.omernaci.achecker.util.RestUtil;
+import com.omernaci.mawaccess.common.response.ACheckerResponse;
+import com.omernaci.mawaccess.common.xml.Resultset;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;

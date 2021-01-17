@@ -1,8 +1,7 @@
 package com.omernaci.achecker.controller;
 
-import com.omernaci.achecker.dto.response.ACheckerResponse;
 import com.omernaci.achecker.service.ACheckerExternalService;
-import lombok.extern.slf4j.Slf4j;
+import com.omernaci.mawaccess.common.response.ACheckerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.omernaci.achecker.exception;
 
-import com.omernaci.achecker.dto.response.BaseApiResponse;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

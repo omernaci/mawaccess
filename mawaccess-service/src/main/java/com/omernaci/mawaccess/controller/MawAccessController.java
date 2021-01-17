@@ -1,10 +1,8 @@
 package com.omernaci.mawaccess.controller;
 
-import com.omernaci.mawaccess.dto.ProjectDTO;
-import com.omernaci.mawaccess.dto.request.CreateProjectRequest;
-import com.omernaci.mawaccess.dto.response.BaseApiResponse;
-import com.omernaci.mawaccess.dto.response.ProjectListResponse;
-import com.omernaci.mawaccess.dto.response.ProjectResponse;
+import com.omernaci.mawaccess.common.dto.ProjectDTO;
+import com.omernaci.mawaccess.common.request.CreateProjectRequest;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
 import com.omernaci.mawaccess.service.ProjectService;
 import com.omernaci.mawaccess.service.feign.ACheckerClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,11 @@ public class MawAccessController {
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getProjectList() {
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectList().getProjectDTOS());
+    }
+
+    @GetMapping("/{id}/run")
+    public ResponseEntity<BaseApiResponse> runProject(@PathVariable("id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.runProject(id));
     }
 
 }

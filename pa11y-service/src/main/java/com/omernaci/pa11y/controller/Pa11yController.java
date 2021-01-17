@@ -1,11 +1,11 @@
 package com.omernaci.pa11y.controller;
 
-import com.omernaci.pa11y.dto.request.ResultRequest;
-import com.omernaci.pa11y.dto.request.TaskRequest;
-import com.omernaci.pa11y.dto.response.BaseApiResponse;
-import com.omernaci.pa11y.dto.response.ResultResponse;
-import com.omernaci.pa11y.dto.response.TaskListResponse;
-import com.omernaci.pa11y.dto.response.TaskResponse;
+import com.omernaci.mawaccess.common.request.ResultRequest;
+import com.omernaci.mawaccess.common.request.TaskRequest;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
+import com.omernaci.mawaccess.common.response.ResultResponse;
+import com.omernaci.mawaccess.common.response.TaskListResponse;
+import com.omernaci.mawaccess.common.response.TaskResponse;
 import com.omernaci.pa11y.service.Pa11yExternalService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class Pa11yController {
 
     @GetMapping(value = "/tasks/{id}/results")
     public ResponseEntity<ResultResponse> getResultList(@PathVariable String id,
-                                        @RequestParam(required = false) String full) {
+                                                        @RequestParam(required = false) String full) {
         return ResponseEntity.status(HttpStatus.OK).body(pa11yExternalService
                 .getResultList(new ResultRequest(id, full)));
     }

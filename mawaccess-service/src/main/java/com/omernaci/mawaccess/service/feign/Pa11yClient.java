@@ -1,23 +1,24 @@
 package com.omernaci.mawaccess.service.feign;
 
-import com.omernaci.mawaccess.dto.response.BaseApiResponse;
+import com.omernaci.mawaccess.common.request.TaskRequest;
+import com.omernaci.mawaccess.common.response.BaseApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "pa11y-service")
 public interface Pa11yClient {
 
-    @GetMapping(value = "/tasks/{id}")
+    @PostMapping(value = "/api/pa11y/tasks")
+    ResponseEntity<BaseApiResponse> createTask(@RequestBody TaskRequest request);
+
+    @GetMapping(value = "/api/pa11y/tasks/{id}")
     ResponseEntity<?> getTask(@PathVariable String id);
 
-    @GetMapping(value = "/tasks/{id}/results")
+    @GetMapping(value = "/api/pa11y/tasks/{id}/results")
     ResponseEntity<?> getResultList(@PathVariable String id,
-                                                 @RequestParam(required = false) String full);
+                                    @RequestParam(required = false) String full);
 
-    @PostMapping(value = "/tasks/{id}/run")
+    @PostMapping(value = "/api/pa11y/tasks/{id}/run")
     ResponseEntity<BaseApiResponse> runTask(@PathVariable String id);
 }
