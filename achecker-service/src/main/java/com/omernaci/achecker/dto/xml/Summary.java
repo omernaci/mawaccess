@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class Summary {
 
-    private int NumOfPotentialProblems;
+    private int numOfPotentialProblems;
 
-    private int NumOfLikelyProblems;
+    private int numOfLikelyProblems;
 
-    private int NumOfErrors;
+    private int numOfErrors;
 
     private Guidelines guidelines;
 

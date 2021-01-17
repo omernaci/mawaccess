@@ -6,6 +6,7 @@ import com.omernaci.achecker.service.ACheckerExternalService;
 import com.omernaci.achecker.util.RestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -76,9 +77,11 @@ public class ACheckerExternalServiceImpl implements ACheckerExternalService {
     }
 
     private Resultset getResultsetFromResponse(String response) throws JAXBException {
+        //javax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory
+        System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
         JAXBContext jaxbContext = JAXBContext.newInstance(Resultset.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        //unmarshaller.setProperty(UnmarshallerProperties.UNMARSHALLING_CASE_INSENSITIVE, true);
+        unmarshaller.setProperty(UnmarshallerProperties.UNMARSHALLING_CASE_INSENSITIVE, true);
         return (Resultset) unmarshaller.unmarshal(new StringReader(response));
     }
 
