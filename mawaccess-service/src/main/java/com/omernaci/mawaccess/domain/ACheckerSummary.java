@@ -1,11 +1,9 @@
 package com.omernaci.mawaccess.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -22,7 +20,9 @@ public class ACheckerSummary extends BaseEntity {
 
     private int numOfErrors;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "project_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Project project;
 
 }

@@ -3,11 +3,16 @@ package com.omernaci.mawaccess.service.impl;
 import com.omernaci.mawaccess.common.dto.ProjectDTO;
 import com.omernaci.mawaccess.common.request.CreateProjectRequest;
 import com.omernaci.mawaccess.common.request.TaskRequest;
+import com.omernaci.mawaccess.common.response.ACheckerResponse;
 import com.omernaci.mawaccess.common.response.BaseApiResponse;
 import com.omernaci.mawaccess.common.response.ProjectListResponse;
 import com.omernaci.mawaccess.common.response.ProjectResponse;
+import com.omernaci.mawaccess.common.xml.Resultset;
 import com.omernaci.mawaccess.constant.MawAccessConstant;
+import com.omernaci.mawaccess.domain.ACheckerStatus;
+import com.omernaci.mawaccess.domain.ACheckerSummary;
 import com.omernaci.mawaccess.domain.Project;
+import com.omernaci.mawaccess.repository.ACheckerRepository;
 import com.omernaci.mawaccess.repository.ProjectRepository;
 import com.omernaci.mawaccess.service.ProjectService;
 import com.omernaci.mawaccess.service.feign.ACheckerClient;
@@ -16,6 +21,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -31,11 +37,17 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
 
+    private final ACheckerRepository aCheckerRepository;
+
     @Autowired
-    public ProjectServiceImpl(ACheckerClient aCheckerClient, Pa11yClient pa11yClient, ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ACheckerClient aCheckerClient,
+                              Pa11yClient pa11yClient,
+                              ProjectRepository projectRepository,
+                              ACheckerRepository aCheckerRepository) {
         this.aCheckerClient = aCheckerClient;
         this.pa11yClient = pa11yClient;
         this.projectRepository = projectRepository;
+        this.aCheckerRepository = aCheckerRepository;
     }
 
     @Override
@@ -107,7 +119,22 @@ public class ProjectServiceImpl implements ProjectService {
 
         if (projectOptional.isPresent()) {
 
-            aCheckerClient.getResult(projectOptional.get().getUrl());
+           ResponseEntity<ACheckerResponse> aCheckerResponse = aCheckerClient.getResult(projectOptional.get().getUrl());
+
+           if (aCheckerResponse.hasBody()) {
+               ACheckerResponse response = aCheckerResponse.getBody();
+               ACheckerSummary aCheckerSummary = new ACheckerSummary();
+               Resultset resultset = response.getResultset();
+               aCheckerSummary.setProject(projectOptional.get());
+               aCheckerSummary.setNumOfErrors(resultset.getSummary().getNumOfErrors());
+               aCheckerSummary.setNumOfPotentialProblems(resultset.getSummary().getNumOfPotentialProblems());
+               aCheckerSummary.setNumOfLikelyProblems(resultset.getSummary().getNumOfLikelyProblems());
+               aCheckerSummary.setSessionId(resultset.getSummary().getSessionID());
+               aCheckerSummary.setStatus(ACheckerStatus.valueOf(resultset.getSummary().getStatus()));
+
+               ACheckerSummary summary = aCheckerRepository.save(aCheckerSummary);
+
+           }
 
         }
 
