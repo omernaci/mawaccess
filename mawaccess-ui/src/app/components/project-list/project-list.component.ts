@@ -29,4 +29,12 @@ export class ProjectListComponent implements OnInit {
     this.router.navigate(['details', id]);
   }
 
+  runProject(id: number){
+    this.mawAccessService.runProject(id).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error(error);
+    });
+  }
+
 }

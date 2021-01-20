@@ -19,4 +19,8 @@ export class MawaccessService {
     return this.http.get(`${this.baseUrl}`);
   }
 
+  runProject(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}/run`)
+  }
+
 }

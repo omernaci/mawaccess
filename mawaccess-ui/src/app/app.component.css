@@ -1,0 +1,25 @@
+.bg-navbar {
+    background-color: #233c46!important;
+}
+
+.navbar-brand {
+    border: 3px solid #83ba41;
+    padding: 5px;
+}
+
+.header-title {
+    font-weight: 600 !important;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    /*height: 30px;
+    
+    margin-top: 10px; */
+    display: block;
+    font-size: 13px;
+    line-height: 60px;
+}

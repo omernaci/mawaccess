@@ -18,7 +18,8 @@
             <td>{{project.name}}</td>
             <td>{{project.url}}</td>
             <td>
-                <button (click)="projectDetails(project.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+                <button (click)="projectDetails(project.id)" class="btn btn-outline-info" style="margin-left: 10px">Details</button>
+                <button (click)="runProject(project.id)" class="btn btn-outline-success" style="margin-left: 10px">Run</button>
             </td>
           </tr>
         </tbody>
